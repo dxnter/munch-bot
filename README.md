@@ -2,6 +2,7 @@
   <p>
     <img src="assets/images/README_banner.png" raw=true width="400" alt="Munchy Banner">
   </p>
+  <strong>Market data and general information at your fingertips</strong>
 </div>
 <br/>
 <hr />
