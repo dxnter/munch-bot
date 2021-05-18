@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img src="src/assets/README_banner.png" raw=true width="400" alt="lasty Banner">
+    <img src="assets/images/README_banner.png" raw=true width="400" alt="Munchy Banner">
   </p>
 </div>
 <br/>
