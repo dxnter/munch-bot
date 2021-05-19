@@ -13,7 +13,7 @@ export default class JokeCommand extends Command {
       guildOnly: true,
       throttling: {
         usages: 1,
-        duration: 5,
+        duration: 10,
       },
     });
   }
@@ -25,7 +25,6 @@ export default class JokeCommand extends Command {
       .get()
       .json((json) => json);
 
-    console.log(setup, punchline);
     return msg.embed(
       new MessageEmbed().addField(setup, punchline).setColor(EMBED_COLOR)
     );

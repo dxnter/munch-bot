@@ -9,7 +9,7 @@ const readyEvent = (client: CommandoClient): void => {
       client!.user!.username
     }} {cyan.bold is online!}`
   );
-  client!.user!.setActivity('$0.0000413');
+  client!.user!.setActivity('!help', { type: 'WATCHING' });
 };
 
 export default readyEvent;
