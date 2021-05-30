@@ -1,29 +1,28 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
-import { getTokenMarketData } from '../../utils/api';
 import { EMBED_COLOR } from '../../../config.json';
 
-export default class VolumeCommand extends Command {
+export default class WebCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
-      name: 'volume',
-      memberName: 'volume',
-      group: 'crypto',
-      description: 'Returns the 24 hour volume of Munch',
+      name: 'web',
+      memberName: 'web',
+      group: 'general',
+      description: 'Returns the URL to the Munch website',
+      aliases: ['website', 'site'],
       guildOnly: true,
       throttling: {
         usages: 1,
-        duration: 15,
+        duration: 10,
       },
     });
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
-    const { volume } = await getTokenMarketData();
-
     return msg.embed(
       new MessageEmbed()
-        .addField('🧊 24hr Volume', volume)
+        .setTitle(':globe_with_meridians: Munch Website')
+        .setDescription('https://munchtoken.com')
         .setColor(EMBED_COLOR)
     );
   }

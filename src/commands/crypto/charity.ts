@@ -1,15 +1,16 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
-import { getTokenMarketData } from '../../utils/api';
+import { ensure } from '../../utils';
+import { charities } from '../../data.json';
 import { EMBED_COLOR } from '../../../config.json';
 
-export default class VolumeCommand extends Command {
+export default class CharityCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
-      name: 'volume',
-      memberName: 'volume',
+      name: 'charity',
+      memberName: 'charity',
       group: 'crypto',
-      description: 'Returns the 24 hour volume of Munch',
+      description: 'Returns information on the active charity',
       guildOnly: true,
       throttling: {
         usages: 1,
@@ -19,11 +20,14 @@ export default class VolumeCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
-    const { volume } = await getTokenMarketData();
+    const { charityName, website } = ensure(
+      charities.find((charity) => charity.isActive)
+    );
 
     return msg.embed(
       new MessageEmbed()
-        .addField('🧊 24hr Volume', volume)
+        .setTitle(`${charityName}`)
+        .setURL(website)
         .setColor(EMBED_COLOR)
     );
   }

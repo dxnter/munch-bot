@@ -1,8 +1,22 @@
 import wretch from 'wretch';
 import { cacheGet, cacheSetTTL } from './cache';
-import { ETHERSCAN_API_KEY } from '../../config.json';
+import { ethContractAddress } from '../constants';
+import { charities } from '../data.json';
+import { ETHERSCAN_API_KEY, ETHPLORER_API_KEY } from '../../config.json';
 
-export interface MarketData {
+export const getEthPrice = async (): Promise<number> => {
+  const {
+    result: { ethusd: ethUsdRate },
+  } = await wretch(
+    `https://api.etherscan.io/api?module=stats&action=ethprice&apiKey=${ETHERSCAN_API_KEY}`
+  )
+    .get()
+    .json();
+
+  return ethUsdRate;
+};
+
+interface MarketData {
   price: string;
   volume: number;
   change1h: number;
@@ -10,7 +24,7 @@ export interface MarketData {
   change7d: number;
 }
 
-export async function getMunchMarketData(): Promise<MarketData | unknown> {
+export async function getTokenMarketData(): Promise<MarketData> {
   const isCached = await cacheGet('marketdata');
 
   if (isCached) {
@@ -26,8 +40,8 @@ export async function getMunchMarketData(): Promise<MarketData | unknown> {
       'https://3rdparty-apis.coinmarketcap.com/v1/cryptocurrency/widget?id=9272'
     )
       .get()
-      .json((json) => {
-        return json.data['9272'].quote.USD;
+      .json(({ data }) => {
+        return data['9272'].quote.USD;
       });
 
     const response = {
@@ -49,16 +63,24 @@ export async function getMunchMarketData(): Promise<MarketData | unknown> {
   }
 }
 
-export type BurnAmount = number;
+export const getHolders = async (): Promise<number> => {
+  const { holdersCount } = await wretch(
+    `https://api.ethplorer.io/getTokenInfo/${ethContractAddress}?apiKey=${ETHPLORER_API_KEY}`
+  )
+    .get()
+    .json();
 
-export async function getBurnAmount(): Promise<number | unknown> {
+  return holdersCount;
+};
+
+export async function getBurnAmount(): Promise<number> {
   const isCached = await cacheGet('burnamount');
 
   if (isCached) {
     return isCached;
   } else {
     const burnWalletBalance = await wretch(
-      `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0x944eee930933be5e23b690c8589021ec8619a301&address=0x000000000000000000000000000000000000dead&tag=latest&apikey=${ETHERSCAN_API_KEY}`
+      `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${ethContractAddress}&address=0x000000000000000000000000000000000000dead&tag=latest&apikey=${ETHERSCAN_API_KEY}`
     )
       .get()
       .json((json) => json.result / 1000000000000000000000);
@@ -67,5 +89,63 @@ export async function getBurnAmount(): Promise<number | unknown> {
     await cacheSetTTL('burnamount', burnAmount);
 
     return burnAmount;
+  }
+}
+
+interface DonationData {
+  totalEth: number;
+  totalUSD: number;
+  activeEth: number;
+  activeUSD: number;
+}
+
+export async function getDonations(): Promise<DonationData> {
+  const isCached = await cacheGet('donations');
+
+  if (isCached) {
+    return isCached;
+  } else {
+    let totalEth = 0;
+    let totalUSD = 0;
+    let activeEth = 0;
+    let activeUSD = 0;
+
+    const ethUsdRate = await getEthPrice();
+
+    for (const { address, isActive } of charities) {
+      const { result: txnList } = await wretch(
+        `https://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}&apiKey=${ETHERSCAN_API_KEY}`
+      )
+        .get()
+        .json();
+
+      txnList.forEach((txn) => {
+        if (
+          txn.from == ethContractAddress.toLocaleLowerCase() &&
+          txn.isError == 0
+        ) {
+          const ethValue = txn.value / 10 ** 18;
+          const usdValue = ethValue * ethUsdRate;
+          totalEth += ethValue;
+          totalUSD += usdValue;
+
+          if (isActive) {
+            activeEth += ethValue;
+            activeUSD += usdValue;
+          }
+        }
+      });
+    }
+
+    const donationData = {
+      totalEth,
+      totalUSD,
+      activeEth,
+      activeUSD,
+    };
+
+    await cacheSetTTL('donations', donationData);
+
+    return donationData;
   }
 }

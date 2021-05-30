@@ -1,0 +1,63 @@
+{
+  "charities": [
+    {
+      "charityName": "GiveWell",
+      "website": "https://www.givewell.org",
+      "address": "0x7cf2ebb5ca55a8bd671a020f8bdbaf07f60f26c1",
+      "isActive": false
+    },
+    {
+      "charityName": "The Yellow Brick Road Project",
+      "website": "https://yellowbrickroadproject.org",
+      "address": "0x2b62e929ca1f1d4196b7b76df5482c77dB246465",
+      "isActive": true
+    }
+  ],
+  "team": [
+    {
+      "name": "Rodrigo Silva",
+      "discord": "",
+      "role": "Chief Executive Officer"
+    },
+    {
+      "name": "Mike Si",
+      "discord": "",
+      "role": "Chief Operating Officer"
+    },
+    {
+      "name": "Antony Gardez",
+      "discord": "",
+      "role": "Chief Technology Officer"
+    },
+    {
+      "name": "Rafael Cardoso",
+      "discord": "",
+      "role": "Technical Lead"
+    },
+    {
+      "name": "Roughan Bass",
+      "discord": "",
+      "role": "Project Lead & Software Developer"
+    },
+    {
+      "name": "Pedro Costa",
+      "discord": "",
+      "role": "Head of Design"
+    },
+    {
+      "name": "Pete Martin",
+      "discord": "",
+      "role": "Head of Business Development"
+    },
+    {
+      "name": "Matthew Howarth",
+      "discord": "",
+      "role": "Partnership Lead"
+    },
+    {
+      "name": "Jon Fletcher",
+      "discord": "",
+      "role": "Communications Lead"
+    }
+  ]
+}

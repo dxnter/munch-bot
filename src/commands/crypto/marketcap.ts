@@ -1,6 +1,6 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
-import { getMunchMarketData, getBurnAmount } from '../../utils/api';
+import { getTokenMarketData, getBurnAmount } from '../../utils/api';
 import { EMBED_COLOR } from '../../../config.json';
 
 export default class MarketCapCommand extends Command {
@@ -10,6 +10,7 @@ export default class MarketCapCommand extends Command {
       memberName: 'marketcap',
       group: 'crypto',
       description: 'Returns the market cap of Munch',
+      aliases: ['mc'],
       guildOnly: true,
       throttling: {
         usages: 1,
@@ -19,7 +20,7 @@ export default class MarketCapCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
-    const { price } = await getMunchMarketData();
+    const { price } = await getTokenMarketData();
 
     const burnAmount = await getBurnAmount();
     const circulatingSupply = 100 - burnAmount;
