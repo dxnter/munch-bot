@@ -56,19 +56,25 @@ ETHPLORER_API_KEY=
 ```
 
 ## Running the bot
+
 In many cases, Munch Bot can run simply with the command below.
+
 ```bash
 npm start
 ```
-However, it's recommened to use Docker to ensure all libraries and dependencies required to run Munch Bot are available.
+
+However, it's recommened to use Docker to ensure all libraries and dependencies required to run Munch Bot are available. The environment variables configured in `.env` will need to be passed in as a command line argument when running the Docker image.
 
 Build Munch Bot
+
 ```
 docker build -t munch-bot .
 ```
+
 Run Munch Bot
+
 ```
-docker run munch-bot
+docker run -d -e DISCORD_BOT_TOKEN="" -e ETHERSCAN_API_KEY="" -e ETHPLORER_API_KEY="" munch-bot
 ```
 
 ## License
