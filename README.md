@@ -23,10 +23,10 @@ Munch Bot is a Discord bot that assists the Munch Donaton Project's official Dis
 
 ```bash
 # Clone the repository
-$ git clone https://github.com/dxnter/munchy
+$ git clone https://github.com/dxnter/munch-bot
 
 # Enter into the directory
-$ cd munchy
+$ cd munch-bot
 
 # Install dependencies
 $ npm install

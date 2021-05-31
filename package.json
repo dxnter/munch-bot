@@ -21,7 +21,6 @@
   "dependencies": {
     "@types/crypto-js": "^4.0.1",
     "chalk": "^4.1.1",
-    "cheerio": "^1.0.0-rc.9",
     "discord.js": "^12.5.3",
     "discord.js-commando": "^0.12.3",
     "dotenv": "^10.0.0",
