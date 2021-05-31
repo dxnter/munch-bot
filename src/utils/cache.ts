@@ -1,26 +1,20 @@
-import { promisify } from 'util';
-import redis from 'redis';
-const client = redis.createClient();
+import NodeCache from 'node-cache';
 
-const getAsync = promisify(client.get).bind(client);
-const setexAsync = promisify(client.setex).bind(client);
+class Cache {
+  cache: NodeCache;
 
-client.on('error', (e) => console.error(e));
-
-export const cacheGet = async (key: string): Promise<any> => {
-  const data = await getAsync(key);
-
-  if (!data) {
-    return null;
+  constructor() {
+    this.cache = new NodeCache({ stdTTL: 300, checkperiod: 320 });
   }
 
-  return JSON.parse(data);
-};
+  get(key: string): any {
+    const value = this.cache.get(key);
+    return value;
+  }
 
-export const cacheSetTTL = async (
-  key: string,
-  value: unknown,
-  ttl = 300
-): Promise<any> => {
-  return await setexAsync(key, ttl, JSON.stringify(value));
-};
+  set(key: string, data: any): any {
+    this.cache.set(key, data);
+  }
+}
+
+export default new Cache();

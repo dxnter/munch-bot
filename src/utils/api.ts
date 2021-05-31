@@ -1,19 +1,27 @@
 import wretch from 'wretch';
-import { cacheGet, cacheSetTTL } from './cache';
+import cache from './cache';
 import { ethContractAddress } from '../constants';
 import { charities } from '../data.json';
 import { ETHERSCAN_API_KEY, ETHPLORER_API_KEY } from '../../config.json';
 
 export const getEthPrice = async (): Promise<number> => {
-  const {
-    result: { ethusd: ethUsdRate },
-  } = await wretch(
-    `https://api.etherscan.io/api?module=stats&action=ethprice&apiKey=${ETHERSCAN_API_KEY}`
-  )
-    .get()
-    .json();
+  const isCached = cache.get('ethPrice');
 
-  return ethUsdRate;
+  if (isCached) {
+    return isCached;
+  } else {
+    const {
+      result: { ethusd: ethUsdRate },
+    } = await wretch(
+      `https://api.etherscan.io/api?module=stats&action=ethprice&apiKey=${ETHERSCAN_API_KEY}`
+    )
+      .get()
+      .json();
+
+    cache.set('ethPrice', ethUsdRate);
+
+    return ethUsdRate;
+  }
 };
 
 interface MarketData {
@@ -25,7 +33,7 @@ interface MarketData {
 }
 
 export async function getTokenMarketData(): Promise<MarketData> {
-  const isCached = await cacheGet('marketdata');
+  const isCached = await cache.get('marketdata');
 
   if (isCached) {
     return isCached;
@@ -57,7 +65,7 @@ export async function getTokenMarketData(): Promise<MarketData> {
       change7d: Number(percent_change_7d.toFixed(2)),
     };
 
-    await cacheSetTTL('marketdata', response);
+    cache.set('marketdata', response);
 
     return response;
   }
@@ -74,7 +82,7 @@ export const getHolders = async (): Promise<number> => {
 };
 
 export async function getBurnAmount(): Promise<number> {
-  const isCached = await cacheGet('burnamount');
+  const isCached = await cache.get('burnamount');
 
   if (isCached) {
     return isCached;
@@ -86,7 +94,7 @@ export async function getBurnAmount(): Promise<number> {
       .json((json) => json.result / 1000000000000000000000);
     const burnAmount = Number(burnWalletBalance.toFixed(4));
 
-    await cacheSetTTL('burnamount', burnAmount);
+    cache.set('burnamount', burnAmount);
 
     return burnAmount;
   }
@@ -100,7 +108,7 @@ interface DonationData {
 }
 
 export async function getDonations(): Promise<DonationData> {
-  const isCached = await cacheGet('donations');
+  const isCached = await cache.get('donations');
 
   if (isCached) {
     return isCached;
@@ -144,7 +152,7 @@ export async function getDonations(): Promise<DonationData> {
       activeUSD,
     };
 
-    await cacheSetTTL('donations', donationData);
+    cache.set('donations', donationData);
 
     return donationData;
   }
