@@ -55,10 +55,20 @@ ETHERSCAN_API_KEY=
 ETHPLORER_API_KEY=
 ```
 
-### Starting the bot
-
+## Running the bot
+In many cases, Munch Bot can run simply with the command below.
 ```bash
 npm start
+```
+However, it's recommened to use Docker to ensure all libraries and dependencies required to run Munch Bot are available.
+
+Build Munch Bot
+```
+docker build -t munch-bot .
+```
+Run Munch Bot
+```
+docker run munch-bot
 ```
 
 ## License
