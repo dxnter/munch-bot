@@ -23,13 +23,13 @@ Munch Bot is a Discord bot that assists the Munch Donaton Project's official Dis
 
 ```bash
 # Clone the repository
-git clone https://github.com/dxnter/munchy
+$ git clone https://github.com/dxnter/munchy
 
 # Enter into the directory
-cd munchy
+$ cd munchy
 
 # Install dependencies
-npm install
+$ npm install
 ```
 
 ### Setup
@@ -57,24 +57,25 @@ ETHPLORER_API_KEY=
 
 ## Running the bot
 
-In many cases, Munch Bot can run simply with the command below.
+```bash
+$ npm start
+```
+
+### Advanced
+
+This section is completely optional but suggested if hosting Munch Bot on a VPS.
+Globally install `pm2`, this enables Munch Bot to run as a daemon process.
 
 ```bash
-npm start
+$ npm install -g pm2
 ```
 
-However, it's recommened to use Docker to ensure all libraries and dependencies required to run Munch Bot are available. The environment variables configured in `.env` will need to be passed in as a command line argument when running the Docker image.
+Start / Stop
 
-Build Munch Bot
+```bash
+$ pm2 start npm -- start
 
-```
-docker build -t munch-bot .
-```
-
-Run Munch Bot
-
-```
-docker run -d -e DISCORD_BOT_TOKEN="" -e ETHERSCAN_API_KEY="" -e ETHPLORER_API_KEY="" munch-bot
+$ pm2 stop all
 ```
 
 ## License
