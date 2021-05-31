@@ -1,7 +1,9 @@
 import { CommandoClient } from 'discord.js-commando';
 import readyEvent from '../events/ready';
 import path from 'path';
-import { OWNERS, DISCORD_BOT_TOKEN } from '../../config.json';
+import { OWNERS } from '../../config.json';
+
+const { DISCORD_BOT_TOKEN } = process.env;
 
 export default class MunchClient extends CommandoClient {
   public constructor() {
@@ -12,7 +14,7 @@ export default class MunchClient extends CommandoClient {
     });
   }
 
-  init() {
+  init(): void {
     this.registry
       .registerDefaultTypes()
       .registerDefaultGroups()

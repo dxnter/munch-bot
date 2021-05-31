@@ -38,16 +38,21 @@ Rename `config.example.json` to `config.json` in the root directory and enter in
 
 `EMBED_COLOR` can either be left as the default or changed to a valid hex color code.
 
-`OWNERS` can either be a single Discord User ID or multiple ID's separated by a comma. Owners will have complete control over Lasty and bypass command throttling.
+`OWNERS` can either be a single Discord User ID or multiple ID's separated by a comma. Owners will have complete control over Munch Bot and bypass command throttling.
 
 ```json
 {
   "EMBED_COLOR": "#e6007a",
-  "OWNERS": "",
-  "DISCORD_BOT_TOKEN": "",
-  "ETHERSCAN_API_KEY": "",
-  "ETHPLORER_API_KEY": ""
+  "OWNERS": ""
 }
+```
+
+Rename `.env.example` to `.env` in the root directory and enter in the correct information for each property.
+
+```env
+DISCORD_BOT_TOKEN=
+ETHERSCAN_API_KEY=
+ETHPLORER_API_KEY=
 ```
 
 ### Starting the bot

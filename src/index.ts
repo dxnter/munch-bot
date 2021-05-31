@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import munchClient from './structures/Client';
 import wretch from 'wretch';
 

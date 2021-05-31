@@ -2,7 +2,8 @@ import wretch from 'wretch';
 import cache from './cache';
 import { ethContractAddress } from '../constants';
 import { charities } from '../data.json';
-import { ETHERSCAN_API_KEY, ETHPLORER_API_KEY } from '../../config.json';
+
+const { ETHERSCAN_API_KEY, ETHPLORER_API_KEY } = process.env;
 
 export const getEthPrice = async (): Promise<number> => {
   const isCached = cache.get('ethPrice');
