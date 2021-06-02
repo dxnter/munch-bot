@@ -19,8 +19,10 @@ export default class VolumeCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    msg.channel.startTyping();
     const { volume } = await getTokenMarketData();
 
+    msg.channel.stopTyping();
     return msg.embed(
       new MessageEmbed()
         .addField('🧊 24hr Volume', volume)

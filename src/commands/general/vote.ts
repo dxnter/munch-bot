@@ -1,6 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { EMBED_COLOR } from '../../../config.json';
+import { charityTrackerURL } from '../../constants';
 
 export default class VoteCommand extends Command {
   constructor(client: CommandoClient) {
@@ -21,7 +22,7 @@ export default class VoteCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle(':ballot_box: Munch Voting Platform')
-        .setDescription('https://vote.munchtoken.com')
+        .setDescription(charityTrackerURL)
         .setColor(EMBED_COLOR)
     );
   }

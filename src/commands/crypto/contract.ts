@@ -1,6 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { EMBED_COLOR } from '../../../config.json';
+import { ethContractURL } from '../../constants';
 
 export default class ContractCommand extends Command {
   constructor(client: CommandoClient) {
@@ -21,10 +22,7 @@ export default class ContractCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle(':bookmark_tabs: Munch Contract')
-        .addField(
-          'Ethereum',
-          'https://etherscan.io/token/0x944eee930933be5e23b690c8589021ec8619a301'
-        )
+        .addField('Ethereum', ethContractURL)
         .setColor(EMBED_COLOR)
     );
   }

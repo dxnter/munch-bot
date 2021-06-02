@@ -19,6 +19,7 @@ export default class PriceCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    msg.channel.startTyping();
     const { price, volume, change1h, change24h, change7d } =
       await getTokenMarketData();
 
@@ -35,11 +36,10 @@ export default class PriceCommand extends Command {
       maximumFractionDigits: 0,
     });
 
+    msg.channel.stopTyping();
     return msg.embed(
       new MessageEmbed()
         .setAuthor('Munch Price')
-        .setThumbnail('https://munchtoken.com/assets/images/doughnuts/logo.png')
-        .setDescription('Prices updates every 5 minutes')
         .addFields(
           { name: '💸 Price', value: `$${price}`, inline: true },
           { name: '🧊 Volume', value: volume, inline: true },
@@ -63,6 +63,7 @@ export default class PriceCommand extends Command {
             inline: true,
           }
         )
+        .setFooter('Data updates every 5 minutes')
         .setColor(EMBED_COLOR)
     );
   }

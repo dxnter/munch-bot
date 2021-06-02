@@ -1,6 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { EMBED_COLOR } from '../../../config.json';
+import { munchWebsiteURL } from '../../constants';
 
 export default class WebCommand extends Command {
   constructor(client: CommandoClient) {
@@ -22,7 +23,7 @@ export default class WebCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle(':globe_with_meridians: Munch Website')
-        .setDescription('https://munchtoken.com')
+        .setDescription(munchWebsiteURL)
         .setColor(EMBED_COLOR)
     );
   }

@@ -20,6 +20,7 @@ export default class MarketCapCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    msg.channel.startTyping();
     const { price } = await getTokenMarketData();
 
     const burnAmount = await getBurnAmount();
@@ -35,6 +36,7 @@ export default class MarketCapCommand extends Command {
       maximumFractionDigits: 0,
     });
 
+    msg.channel.stopTyping();
     return msg.embed(
       new MessageEmbed()
         .addFields(

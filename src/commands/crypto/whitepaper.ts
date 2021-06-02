@@ -1,6 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { EMBED_COLOR } from '../../../config.json';
+import { whitepaperURL } from '../../constants';
 
 export default class WhitepaperCommand extends Command {
   constructor(client: CommandoClient) {
@@ -21,7 +22,7 @@ export default class WhitepaperCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle(':page_with_curl: Munch Whitepaper')
-        .setDescription('https://munchtoken.com/docs/munch-whitepaper.pdf')
+        .setDescription(whitepaperURL)
         .setColor(EMBED_COLOR)
     );
   }

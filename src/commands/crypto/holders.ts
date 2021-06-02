@@ -20,8 +20,10 @@ export default class HoldersCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    msg.channel.startTyping();
     const holders = await getHolders();
 
+    msg.channel.stopTyping();
     return msg.embed(
       new MessageEmbed()
         .setTitle(':open_hands: Munch Holders')
