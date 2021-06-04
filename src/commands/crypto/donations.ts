@@ -1,7 +1,12 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { getDonations } from '../../utils/api';
-import { formatUSD, ensure } from '../../utils';
+import {
+  formatUSD,
+  ensure,
+  isRequiredChannel,
+  requiredChannelMessage,
+} from '../../utils';
 import { charities } from '../../data.json';
 import { EMBED_COLOR } from '../../../config.json';
 import { charityTrackerURL } from '../../constants';
@@ -12,7 +17,7 @@ export default class DonationsCommand extends Command {
       name: 'donations',
       memberName: 'donations',
       group: 'crypto',
-      description: 'Returns an embed of the Ethereum donated by Munch',
+      description: 'Returns the amount of Ethereum donated by Munch',
       guildOnly: true,
       throttling: {
         usages: 1,
@@ -22,6 +27,10 @@ export default class DonationsCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    if (!isRequiredChannel(msg)) {
+      return msg.reply(requiredChannelMessage());
+    }
+
     msg.channel.startTyping();
     const { totalEth, totalUSD, activeEth, activeUSD } = await getDonations();
     const { charityName } = ensure(

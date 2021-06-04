@@ -1,6 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { getTokenMarketData, getBurnAmount } from '../../utils/api';
+import { isRequiredChannel, requiredChannelMessage } from '../../utils';
 import { EMBED_COLOR } from '../../../config.json';
 
 export default class PriceCommand extends Command {
@@ -19,6 +20,10 @@ export default class PriceCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    if (!isRequiredChannel(msg)) {
+      return msg.reply(requiredChannelMessage());
+    }
+
     msg.channel.startTyping();
     const { price, volume, change1h, change24h, change7d } =
       await getTokenMarketData();

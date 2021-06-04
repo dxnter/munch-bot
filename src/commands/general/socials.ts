@@ -8,7 +8,7 @@ export default class SocialsCommand extends Command {
       name: 'socials',
       memberName: 'socials',
       group: 'general',
-      description: 'Returns a list of Munch social media profiles',
+      description: 'Returns a list of Munch social media accounts',
       guildOnly: true,
       throttling: {
         usages: 1,

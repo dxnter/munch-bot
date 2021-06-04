@@ -1,20 +1,19 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
-import { getTokenMarketData } from '../../utils/api';
 import { EMBED_COLOR } from '../../../config.json';
 import { isRequiredChannel, requiredChannelMessage } from '../../utils';
 
-export default class VolumeCommand extends Command {
+export default class SocialsCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
-      name: 'volume',
-      memberName: 'volume',
-      group: 'crypto',
-      description: 'Returns the 24 hour volume of Munch',
+      name: 'help',
+      memberName: 'help',
+      group: 'general',
+      description: 'Returns a list of available commands',
       guildOnly: true,
       throttling: {
         usages: 1,
-        duration: 15,
+        duration: 10,
       },
     });
   }
@@ -24,14 +23,14 @@ export default class VolumeCommand extends Command {
       return msg.reply(requiredChannelMessage());
     }
 
-    msg.channel.startTyping();
-    const { volume } = await getTokenMarketData();
+    const helpEmbed = new MessageEmbed()
+      .setTitle(':information_source: Available Commands')
+      .setColor(EMBED_COLOR);
 
-    msg.channel.stopTyping();
-    return msg.embed(
-      new MessageEmbed()
-        .addField('🧊 24hr Volume', volume)
-        .setColor(EMBED_COLOR)
-    );
+    this.client.registry.commands.forEach((command) => {
+      helpEmbed.addField(`!${command.name}`, command.description);
+    });
+
+    return msg.author.send(helpEmbed);
   }
 }

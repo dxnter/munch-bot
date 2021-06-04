@@ -9,7 +9,7 @@ export default class BuyCommand extends Command {
       name: 'buy',
       memberName: 'buy',
       group: 'crypto',
-      description: 'Returns the URL to buy Munch',
+      description: 'Returns links to buy Munch',
       guildOnly: true,
       throttling: {
         usages: 1,

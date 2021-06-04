@@ -9,7 +9,7 @@ export default class SocialsCommand extends Command {
       name: 'team',
       memberName: 'team',
       group: 'general',
-      description: 'Returns a list of the Munch team members',
+      description: 'Returns a list of the Munch Team',
       guildOnly: true,
       throttling: {
         usages: 1,

@@ -9,7 +9,7 @@ export default class ChartCommand extends Command {
       name: 'chart',
       memberName: 'chart',
       group: 'crypto',
-      description: 'Returns the URL to the Munch chart',
+      description: 'Returns links to the Munch charts',
       aliases: ['charts'],
       guildOnly: true,
       throttling: {

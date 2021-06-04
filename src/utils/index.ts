@@ -1,3 +1,6 @@
+import { CommandoMessage } from 'discord.js-commando';
+import { priceTalkChannelID, botCommandsChannelID } from '../constants';
+
 export const formatUSD = (amount: number): string => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -16,4 +19,19 @@ export function ensure<T>(
   }
 
   return argument;
+}
+
+export function isRequiredChannel(message: CommandoMessage): boolean {
+  if (message.channel.id === botCommandsChannelID) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Commands that return market data or a large embed
+ * should be restricted to the bot-commands channel.
+ */
+export function requiredChannelMessage(): string {
+  return `You can only run this command inside of <#${botCommandsChannelID}>`;
 }

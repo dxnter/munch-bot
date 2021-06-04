@@ -8,7 +8,7 @@ export default class DailyTasksCommand extends Command {
       name: 'dailytasks',
       memberName: 'dailytasks',
       group: 'general',
-      description: 'Returns list of daily tasks to boost $Munch',
+      description: 'Returns a list of daily tasks to boost Munch',
       aliases: ['dailywork'],
       guildOnly: true,
       throttling: {

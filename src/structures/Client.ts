@@ -28,6 +28,7 @@ export default class MunchClient extends CommandoClient {
         prefix: false,
         commandState: false,
         unknownCommand: false,
+        eval: false,
       })
       .registerCommandsIn(path.join(__dirname, '../commands'));
 
