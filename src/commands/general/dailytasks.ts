@@ -1,5 +1,6 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
+import { isRequiredChannel, requiredChannelMessage } from '../../utils';
 import { EMBED_COLOR } from '../../../config.json';
 
 export default class DailyTasksCommand extends Command {
@@ -19,6 +20,10 @@ export default class DailyTasksCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    if (!isRequiredChannel(msg)) {
+      return msg.reply(requiredChannelMessage);
+    }
+
     return msg.embed(
       new MessageEmbed()
         .setTitle(':date: Daily Tasks')

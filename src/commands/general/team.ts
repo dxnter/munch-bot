@@ -1,6 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { team } from '../../data.json';
+import { isRequiredChannel, requiredChannelMessage } from '../../utils';
 import { EMBED_COLOR } from '../../../config.json';
 
 export default class SocialsCommand extends Command {
@@ -19,6 +20,10 @@ export default class SocialsCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
+    if (!isRequiredChannel(msg)) {
+      return msg.reply(requiredChannelMessage);
+    }
+
     const teamEmbed = new MessageEmbed()
       .setTitle(':gear: Munch Team')
       .setColor(EMBED_COLOR);
