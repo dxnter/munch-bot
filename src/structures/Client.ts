@@ -8,7 +8,7 @@ const { DISCORD_BOT_TOKEN } = process.env;
 export default class MunchClient extends CommandoClient {
   public constructor() {
     super({
-      commandPrefix: '!',
+      commandPrefix: ',',
       owner: OWNERS.split(',').map((id) => id.trim()),
       disableMentions: 'everyone',
     });
