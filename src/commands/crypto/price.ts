@@ -21,7 +21,7 @@ export default class PriceCommand extends Command {
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
     if (!isRequiredChannel(msg)) {
-      return msg.reply(requiredChannelMessage());
+      return msg.reply(requiredChannelMessage);
     }
 
     msg.channel.startTyping();

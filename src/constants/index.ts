@@ -13,3 +13,4 @@ export const dextoolsURL =
   'https://www.dextools.io/app/uniswap/pair-explorer/0x8745df04862b854d0d7ee8ecf80ac4e9c109d547';
 
 export const botCommandsChannelID = '850448319284510801';
+export const botCommandsTestingChannelID = '850447325843292182';
