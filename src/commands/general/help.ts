@@ -31,6 +31,6 @@ export default class SocialsCommand extends Command {
       helpEmbed.addField(`!${command.name}`, command.description);
     });
 
-    return msg.author.send(helpEmbed);
+    return msg.embed(helpEmbed);
   }
 }
