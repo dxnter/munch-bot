@@ -13,7 +13,7 @@ export default class JokeCommand extends Command {
       guildOnly: true,
       throttling: {
         usages: 1,
-        duration: 10,
+        duration: 15,
       },
     });
   }

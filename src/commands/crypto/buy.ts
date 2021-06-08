@@ -13,7 +13,7 @@ export default class BuyCommand extends Command {
       guildOnly: true,
       throttling: {
         usages: 1,
-        duration: 5,
+        duration: 15,
       },
     });
   }

@@ -14,7 +14,7 @@ export default class VolumeCommand extends Command {
       guildOnly: true,
       throttling: {
         usages: 1,
-        duration: 15,
+        duration: 30,
       },
     });
   }
