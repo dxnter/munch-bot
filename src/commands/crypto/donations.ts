@@ -33,7 +33,7 @@ export default class DonationsCommand extends Command {
 
     msg.channel.startTyping();
     const { totalEth, totalUSD, activeEth, activeUSD } = await getDonations();
-    const { charityName } = ensure(
+    const { name: charityName } = ensure(
       charities.find((charity) => charity.isActive)
     );
 

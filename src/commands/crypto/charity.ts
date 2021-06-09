@@ -20,13 +20,13 @@ export default class CharityCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
-    const { charityName, website } = ensure(
+    const { name, website } = ensure(
       charities.find((charity) => charity.isActive)
     );
 
     return msg.embed(
       new MessageEmbed()
-        .setTitle(`${charityName}`)
+        .setTitle(`${name}`)
         .setURL(website)
         .setColor(EMBED_COLOR)
     );

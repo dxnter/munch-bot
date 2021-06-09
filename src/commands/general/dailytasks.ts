@@ -1,6 +1,5 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
-import { isRequiredChannel, requiredChannelMessage } from '../../utils';
 import { EMBED_COLOR } from '../../../config.json';
 
 export default class DailyTasksCommand extends Command {

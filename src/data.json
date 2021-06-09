@@ -1,13 +1,13 @@
 {
   "charities": [
     {
-      "charityName": "GiveWell",
+      "name": "GiveWell",
       "website": "https://www.givewell.org",
       "address": "0x7cf2ebb5ca55a8bd671a020f8bdbaf07f60f26c1",
       "isActive": false
     },
     {
-      "charityName": "The Yellow Brick Road Project",
+      "name": "The Yellow Brick Road Project",
       "website": "https://yellowbrickroadproject.org",
       "address": "0x2b62e929ca1f1d4196b7b76df5482c77dB246465",
       "isActive": true
