@@ -1,7 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { EMBED_COLOR } from '../../../config.json';
-import { dextoolsURL } from '../../constants';
+import { ethMunch, bscMunch } from '../../constants';
 
 export default class ChartCommand extends Command {
   constructor(client: CommandoClient) {
@@ -23,7 +23,8 @@ export default class ChartCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle(':chart_with_upwards_trend: Munch Charts')
-        .addField('DEXTools (ETH)', dextoolsURL)
+        .addField('ETH', ethMunch.chartURL)
+        .addField('BNB', bscMunch.chartURL)
         .setColor(EMBED_COLOR)
     );
   }

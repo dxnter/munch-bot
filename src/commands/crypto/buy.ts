@@ -1,7 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { EMBED_COLOR } from '../../../config.json';
-import { uniSwapURL } from '../../constants';
+import { ethMunch, bscMunch } from '../../constants';
 
 export default class BuyCommand extends Command {
   constructor(client: CommandoClient) {
@@ -24,7 +24,8 @@ export default class BuyCommand extends Command {
         .setDescription(
           'Ensure 6% slippage is set and a round number of tokens are being swapped'
         )
-        .addField('Uniswap (v2)', uniSwapURL)
+        .addField('ETH • Uniswap', ethMunch.dexURL)
+        .addField('BNB • PancakeSwap', bscMunch.dexURL)
         .setColor(EMBED_COLOR)
     );
   }

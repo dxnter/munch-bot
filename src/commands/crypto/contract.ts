@@ -1,7 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
 import { EMBED_COLOR } from '../../../config.json';
-import { ethContractURL } from '../../constants';
+import { ethMunch, bscMunch } from '../../constants';
 
 export default class ContractCommand extends Command {
   constructor(client: CommandoClient) {
@@ -21,8 +21,9 @@ export default class ContractCommand extends Command {
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
     return msg.embed(
       new MessageEmbed()
-        .setTitle(':bookmark_tabs: Munch Contract')
-        .addField('Ethereum', ethContractURL)
+        .setTitle(':bookmark_tabs: Munch Contracts')
+        .addField('Ethereum', ethMunch.contractURL)
+        .addField('Binance Smart Chain', bscMunch.contractURL)
         .setColor(EMBED_COLOR)
     );
   }

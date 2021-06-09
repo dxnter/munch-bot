@@ -17,6 +17,7 @@ Munch Bot is a Discord bot that assists the Munch Donaton Project's official Dis
 - [Discord Bot Token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token)
 - [Discord User ID](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-)
 - [Etherscan API Key](https://info.etherscan.com/api-keys/)
+- [BscScan API Key](https://bscscan.com/apis)
 - [Ethplorer API Key](https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API)
 
 ### Installation
@@ -52,6 +53,7 @@ Rename `.env.example` to `.env` in the root directory and enter in the correct i
 ```env
 DISCORD_BOT_TOKEN=
 ETHERSCAN_API_KEY=
+BSCSCAN_API_KEY=
 ETHPLORER_API_KEY=
 ```
 

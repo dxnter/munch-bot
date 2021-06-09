@@ -1,6 +1,6 @@
 import wretch from 'wretch';
 import cache from './cache';
-import { ethContractAddress } from '../constants';
+import { ethMunch, bscMunch } from '../constants';
 import { charities } from '../data.json';
 
 const { ETHERSCAN_API_KEY, ETHPLORER_API_KEY } = process.env;
@@ -74,7 +74,7 @@ export async function getTokenMarketData(): Promise<MarketData> {
 
 export const getHolders = async (): Promise<number> => {
   const { holdersCount } = await wretch(
-    `https://api.ethplorer.io/getTokenInfo/${ethContractAddress}?apiKey=${ETHPLORER_API_KEY}`
+    `https://api.ethplorer.io/getTokenInfo/${ethMunch.contractAddress}?apiKey=${ETHPLORER_API_KEY}`
   )
     .get()
     .json();
@@ -89,7 +89,7 @@ export async function getBurnAmount(): Promise<number> {
     return isCached;
   } else {
     const burnWalletBalance = await wretch(
-      `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${ethContractAddress}&address=0x000000000000000000000000000000000000dead&tag=latest&apikey=${ETHERSCAN_API_KEY}`
+      `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${ethMunch.contractAddress}&address=0x000000000000000000000000000000000000dead&tag=latest&apikey=${ETHERSCAN_API_KEY}`
     )
       .get()
       .json((json) => json.result / 1000000000000000000000);
@@ -130,7 +130,7 @@ export async function getDonations(): Promise<DonationData> {
 
       txnList.forEach((txn) => {
         if (
-          txn.from == ethContractAddress.toLocaleLowerCase() &&
+          txn.from == ethMunch.contractAddress.toLocaleLowerCase() &&
           txn.isError == 0
         ) {
           const ethValue = txn.value / 10 ** 18;
