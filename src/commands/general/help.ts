@@ -24,11 +24,11 @@ export default class SocialsCommand extends Command {
     }
 
     const helpEmbed = new MessageEmbed()
-      .setTitle(':information_source: Available Commands')
+      .setTitle(':information_source: Munchy Commands')
       .setColor(EMBED_COLOR);
 
     this.client.registry.commands.forEach((command) => {
-      helpEmbed.addField(`!${command.name}`, command.description);
+      helpEmbed.addField(`,${command.name}`, command.description);
     });
 
     return msg.embed(helpEmbed);

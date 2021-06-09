@@ -34,4 +34,4 @@ export function isRequiredChannel(message: CommandoMessage): boolean {
   return false;
 }
 
-export const requiredChannelMessage = `You can only run this command inside of <#${botCommandsChannelID}>`;
+export const requiredChannelMessage = `you can only run this command inside of <#${botCommandsChannelID}>`;

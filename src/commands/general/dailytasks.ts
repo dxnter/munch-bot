@@ -20,10 +20,6 @@ export default class DailyTasksCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
-    if (!isRequiredChannel(msg)) {
-      return msg.reply(requiredChannelMessage);
-    }
-
     return msg.embed(
       new MessageEmbed()
         .setTitle(':date: Daily Tasks')
