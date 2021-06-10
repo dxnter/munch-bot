@@ -1,16 +1,15 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
+import { munchBridgeURL } from '../../constants';
 import { EMBED_COLOR } from '../../../config.json';
-import { ethMunch, bscMunch } from '../../constants';
 
-export default class ContractCommand extends Command {
+export default class WebCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
-      name: 'contract',
-      memberName: 'contract',
+      name: 'bridge',
+      memberName: 'bridge',
       group: 'crypto',
-      description: 'Returns the URL to the Munch contract',
-      aliases: ['contracts'],
+      description: 'Returns the URL to the Munch Token Bridge',
       guildOnly: true,
       throttling: {
         usages: 1,
@@ -22,9 +21,8 @@ export default class ContractCommand extends Command {
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
     return msg.embed(
       new MessageEmbed()
-        .setTitle(':bookmark_tabs: Munch Contracts')
-        .addField('Ethereum', ethMunch.contractURL)
-        .addField('Binance Smart Chain', bscMunch.contractURL)
+        .setTitle(':bridge_at_night: Munch Token Bridge')
+        .setDescription(munchBridgeURL)
         .setColor(EMBED_COLOR)
     );
   }

@@ -1,4 +1,5 @@
 export const munchWebsiteURL = 'https://munchproject.io';
+export const munchBridgeURL = 'http://bridge.munchproject.io/';
 export const charityTrackerURL = 'https://munchproject.io/charity';
 export const votingAppURL = 'https://vote.munchproject.io/#/munchproject.eth';
 export const whitepaperURL =
