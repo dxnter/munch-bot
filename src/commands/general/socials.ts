@@ -21,13 +21,13 @@ export default class SocialsCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle('Social Media')
-        .addField('Twitter', 'https://twitter.com/MunchToken')
-        .addField('Instagram', 'https://www.instagram.com/munchtoken')
+        .addField('**Twitter**', 'https://twitter.com/MunchToken')
+        .addField('**Instagram**', 'https://www.instagram.com/munchtoken')
         .addField(
-          'YouTube',
+          '**YouTube**',
           'https://www.youtube.com/channel/UC9mrzv6MB23uUPTrBpLz1zQ'
         )
-        .addField('Reddit', 'https://www.reddit.com/r/MunchToken')
+        .addField('**Reddit**', 'https://www.reddit.com/r/MunchToken')
         .setColor(EMBED_COLOR)
     );
   }

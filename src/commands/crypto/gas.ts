@@ -1,16 +1,15 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
-import { getTokenMarketData } from '../../utils/api';
 import { EMBED_COLOR } from '../../../config.json';
-import { isRequiredChannel, requiredChannelMessage } from '../../utils';
+import { getUniswapGasPrices } from '../../utils/api';
 
-export default class VolumeCommand extends Command {
+export default class GasCommand extends Command {
   constructor(client: CommandoClient) {
     super(client, {
-      name: 'volume',
-      memberName: 'volume',
+      name: 'gas',
+      memberName: 'gas',
       group: 'crypto',
-      description: 'Returns the 24 hour volume of Munch',
+      description: 'Returns the USD cost of gas for a Uniswap swap',
       guildOnly: true,
       throttling: {
         usages: 1,
@@ -20,17 +19,16 @@ export default class VolumeCommand extends Command {
   }
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
-    if (!isRequiredChannel(msg)) {
-      return msg.reply(requiredChannelMessage);
-    }
-
     msg.channel.startTyping();
-    const { volume } = await getTokenMarketData();
+    const [low, average, high] = await getUniswapGasPrices();
 
     msg.channel.stopTyping();
     return msg.embed(
       new MessageEmbed()
-        .addField('**🧊 24hr Volume**', volume)
+        .setTitle(':fuelpump: Uniswap Gas Cost')
+        .addField('**Low**', `$${low}`, true)
+        .addField('**Average**', `$${average}`, true)
+        .addField('**High**', `$${high}`, true)
         .setColor(EMBED_COLOR)
     );
   }

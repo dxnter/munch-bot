@@ -45,19 +45,19 @@ export default class MarketCapCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .addFields(
-          { name: '🏦 Total Supply', value: '100T', inline: false },
+          { name: '**🏦 Total Supply**', value: '100T', inline: false },
           {
-            name: '🔥 Total Burned',
+            name: '**🔥 Total Burned**',
             value: `${burnAmount.toFixed(2)}T`,
             inline: false,
           },
           {
-            name: '💱 Circ Supply',
+            name: '**💱 Circ Supply**',
             value: `${circulatingSupply.toFixed(2)}T`,
             inline: false,
           },
           {
-            name: '💰 Market Cap',
+            name: '**💰 Market Cap**',
             value: marketCap,
             inline: false,
           }

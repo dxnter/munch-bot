@@ -23,8 +23,8 @@ export default class ChartCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle(':chart_with_upwards_trend: Munch Charts')
-        .addField('ETH', ethMunch.chartURL)
-        .addField('BNB', bscMunch.chartURL)
+        .addField('**ETH**', ethMunch.chartURL)
+        .addField('**BNB**', bscMunch.chartURL)
         .setColor(EMBED_COLOR)
     );
   }

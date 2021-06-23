@@ -46,23 +46,23 @@ export default class PriceCommand extends Command {
       new MessageEmbed()
         .setAuthor('Munch Price')
         .addFields(
-          { name: '💸 Price', value: `$${price}`, inline: true },
-          { name: '🧊 Volume', value: volume, inline: true },
-          { name: '💰 Market Cap', value: marketCap, inline: true },
+          { name: '**💸 Price**', value: `$${price}`, inline: true },
+          { name: '**🧊 Volume**', value: volume, inline: true },
+          { name: '**💰 Market Cap**', value: marketCap, inline: true },
           {
-            name: '📈 1hr Change',
+            name: '**📈 1hr Change**',
             value:
               change1h > 0 ? '⬆️ ' + change1h + '%' : '⬇️ ' + change1h + '%',
             inline: true,
           },
           {
-            name: '📈 24hr Change',
+            name: '**📈 24hr Change**',
             value:
               change24h > 0 ? '⬆️ ' + change24h + '%' : '⬇️ ' + change24h + '%',
             inline: true,
           },
           {
-            name: '📈 7D Change',
+            name: '**📈 7D Change**',
             value:
               change7d > 0 ? '⬆️ ' + change7d + '%' : '⬇️ ' + change7d + '%',
             inline: true,

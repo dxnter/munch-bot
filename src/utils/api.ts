@@ -1,4 +1,5 @@
 import wretch from 'wretch';
+import cheerio from 'cheerio';
 import cache from './cache';
 import { ethMunch, bscMunch } from '../constants';
 import { charities } from '../data.json';
@@ -6,10 +7,10 @@ import { charities } from '../data.json';
 const { ETHERSCAN_API_KEY, ETHPLORER_API_KEY } = process.env;
 
 export const getEthPrice = async (): Promise<number> => {
-  const isCached = cache.get('ethPrice');
+  const cachedData = cache.get('ethPrice');
 
-  if (isCached) {
-    return isCached;
+  if (cachedData) {
+    return cachedData;
   } else {
     const {
       result: { ethusd: ethUsdRate },
@@ -34,10 +35,10 @@ interface MarketData {
 }
 
 export async function getTokenMarketData(): Promise<MarketData> {
-  const isCached = await cache.get('marketdata');
+  const cachedData = await cache.get('marketdata');
 
-  if (isCached) {
-    return isCached;
+  if (cachedData) {
+    return cachedData;
   } else {
     const {
       price,
@@ -72,7 +73,7 @@ export async function getTokenMarketData(): Promise<MarketData> {
   }
 }
 
-export const getHolders = async (): Promise<number> => {
+export const getEthHolders = async (): Promise<number> => {
   const { holdersCount } = await wretch(
     `https://api.ethplorer.io/getTokenInfo/${ethMunch.contractAddress}?apiKey=${ETHPLORER_API_KEY}`
   )
@@ -82,11 +83,39 @@ export const getHolders = async (): Promise<number> => {
   return holdersCount;
 };
 
-export async function getBurnAmount(): Promise<number> {
-  const isCached = await cache.get('burnamount');
+export const getBscHolders = async (): Promise<number> => {
+  const response = await wretch(bscMunch.contractURL).get().text();
+  const $ = cheerio.load(response);
 
-  if (isCached) {
-    return isCached;
+  const rawHolders = Number(
+    $('#ContentPlaceHolder1_tr_tokenHolders > div > div.col-md-8 > div > div')
+      .text()
+      .split(' ')[0]
+      .replace(',', '')
+  );
+
+  return rawHolders;
+};
+
+export const getUniswapGasPrices = async (): Promise<Array<string>> => {
+  const response = await wretch('https://etherscan.io/gastracker').get().text();
+  const $ = cheerio.load(response);
+
+  const gasPrices = $(
+    '#content > div.container.mb-4 > div > div.col-lg-6.mb-3.mb-sm-0 > div > div > div.table-responsive > table > tbody > tr:nth-child(2)'
+  )
+    .text()
+    .split('$')
+    .slice(1);
+
+  return gasPrices;
+};
+
+export async function getBurnAmount(): Promise<number> {
+  const cachedData = await cache.get('burnamount');
+
+  if (cachedData) {
+    return cachedData;
   } else {
     const burnWalletBalance = await wretch(
       `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${ethMunch.contractAddress}&address=0x000000000000000000000000000000000000dead&tag=latest&apikey=${ETHERSCAN_API_KEY}`
@@ -109,10 +138,10 @@ interface DonationData {
 }
 
 export async function getDonations(): Promise<DonationData> {
-  const isCached = await cache.get('donations');
+  const cachedData = await cache.get('donations');
 
-  if (isCached) {
-    return isCached;
+  if (cachedData) {
+    return cachedData;
   } else {
     let totalEth = 0;
     let totalUSD = 0;
@@ -121,7 +150,7 @@ export async function getDonations(): Promise<DonationData> {
 
     const ethUsdRate = await getEthPrice();
 
-    for (const { address, isActive } of charities) {
+    for (const { name, address, isActive } of charities) {
       const { result: txnList } = await wretch(
         `https://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}&apiKey=${ETHERSCAN_API_KEY}`
       )
@@ -144,7 +173,18 @@ export async function getDonations(): Promise<DonationData> {
           }
         }
       });
+      if (name === 'charity: water') {
+        activeEth += 6;
+        activeUSD += 6 * ethUsdRate;
+      }
     }
+
+    /**
+     * An additional 6 ETH was donated to "charity: water" separate from the contract.
+     * To account for this, we add it to the total manually.
+     */
+    totalEth += 6;
+    totalUSD += 6 * ethUsdRate;
 
     const donationData = {
       totalEth,

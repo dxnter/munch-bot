@@ -1,6 +1,6 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { Message, MessageEmbed } from 'discord.js';
-import { getHolders } from '../../utils/api';
+import { getEthHolders, getBscHolders } from '../../utils/api';
 import { EMBED_COLOR } from '../../../config.json';
 
 export default class HoldersCommand extends Command {
@@ -21,13 +21,17 @@ export default class HoldersCommand extends Command {
 
   async run(msg: CommandoMessage): Promise<Message | Message[]> {
     msg.channel.startTyping();
-    const holders = await getHolders();
+    const ethHolders = await getEthHolders();
+    const bscHolders = await getBscHolders();
+    const totalHolders = (ethHolders + bscHolders).toLocaleString();
 
     msg.channel.stopTyping();
     return msg.embed(
       new MessageEmbed()
         .setTitle(':open_hands: Munch Holders')
-        .addField('Ethereum', holders)
+        .addField('**Ethereum**', ethHolders.toLocaleString())
+        .addField('**BSC**', bscHolders.toLocaleString())
+        .addField('**Total**', totalHolders)
         .setColor(EMBED_COLOR)
     );
   }

@@ -23,8 +23,8 @@ export default class ContractCommand extends Command {
     return msg.embed(
       new MessageEmbed()
         .setTitle(':bookmark_tabs: Munch Contracts')
-        .addField('Ethereum', ethMunch.contractURL)
-        .addField('Binance Smart Chain', bscMunch.contractURL)
+        .addField('**Ethereum**', ethMunch.contractURL)
+        .addField('**Binance Smart Chain**', bscMunch.contractURL)
         .setColor(EMBED_COLOR)
     );
   }

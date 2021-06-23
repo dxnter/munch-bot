@@ -10,6 +10,12 @@
       "name": "The Yellow Brick Road Project",
       "website": "https://yellowbrickroadproject.org",
       "address": "0x2b62e929ca1f1d4196b7b76df5482c77dB246465",
+      "isActive": false
+    },
+    {
+      "name": "charity: water",
+      "website": "https://www.charitywater.org/",
+      "address": "0xD109128e1d86A56DDA23e7cA585E8b8dced5ceD8",
       "isActive": true
     }
   ],

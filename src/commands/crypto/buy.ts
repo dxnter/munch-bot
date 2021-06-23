@@ -24,8 +24,8 @@ export default class BuyCommand extends Command {
         .setDescription(
           'Ensure 6% slippage is set and a round number of tokens are being swapped'
         )
-        .addField('ETH • Uniswap', ethMunch.dexURL)
-        .addField('BNB • PancakeSwap', bscMunch.dexURL)
+        .addField('**ETH • Uniswap**', ethMunch.dexURL)
+        .addField('**BNB • PancakeSwap**', bscMunch.dexURL)
         .setColor(EMBED_COLOR)
     );
   }
